@@ -285,7 +285,10 @@ proc startRecv {} {
          close $chn
       }
       set tmpServ [socket -server tmpCmd 0]
-      set cname $::env(COMPUTERNAME)
+		set cname "127.0.0.1"
+		if {[array names env COMPUTERNAME] ne ""} {
+			set cname $::env(COMPUTERNAME)
+		}
       set tmpSock [socket $cname [lindex [fconfigure $tmpServ -sockname] 2]]
       set ::myIpAddr [lindex [fconfigure $tmpSock -sockname] 0]
       close $tmpSock
